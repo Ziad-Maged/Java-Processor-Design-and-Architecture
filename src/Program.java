@@ -24,16 +24,14 @@ public class Program {
         byte opcode = Byte.parseByte(binary.substring(0, 4), 2);
         byte destination = Byte.parseByte(binary.substring(4, 10), 2);
         byte sourceImmediate = Byte.parseByte(binary.substring(10), 2);
+        execute(opcode, destination, sourceImmediate);
     }
 
-    public void execute(){
+    public void execute(byte opcode, byte destination, byte sourceImmediate){
         //TODO LATER
     }
 
     public static void main(String[] args) {
-        String[] test = Integer.toBinaryString(15).split("");
-        for (String s : test) {
-            System.out.println(s);
-        }
+        //TODO Later
     }
 }
