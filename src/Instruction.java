@@ -4,8 +4,8 @@ public class Instruction {
     private byte destination;
     private byte sourceImmediate;
 
-    public Instruction(){
-
+    public Instruction(short instruction){
+        this.instruction = instruction;
     }
 
     public byte getDestination() {
