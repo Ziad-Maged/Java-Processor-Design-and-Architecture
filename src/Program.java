@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Program {
     static short[] instructionMemory = new short[1024];
@@ -32,7 +33,52 @@ public class Program {
     }
 
     public void execute(byte opcode, byte destination, byte sourceImmediate){
-        //TODO LATER
+        String[] sregBinary = Integer.toBinaryString(sreg).split("");
+        switch(opcode){
+            case 0 ->{
+                registers[destination] = (byte)(registers[destination] + registers[sourceImmediate]);
+            }
+            case 1 ->{
+                registers[destination] = (byte)(registers[destination] - registers[sourceImmediate]);
+            }
+            case 2 ->{
+                registers[destination] = (byte)(registers[destination] * registers[sourceImmediate]);
+            }
+            case 3 ->{
+                registers[destination] = sourceImmediate;
+            }
+            case 4 ->{
+                if(registers[destination] == 0)
+                    pc = (short)(pc + 1 + sourceImmediate);
+            }
+            case 5 ->{
+                registers[destination] = (byte) (registers[destination] & sourceImmediate);
+            }
+            case 6 ->{
+                registers[destination] = (byte)(registers[destination] ^ registers[sourceImmediate]);
+            }
+            case 7 ->{
+                String destBinary = Integer.toBinaryString(destination);
+                String srcBinary = Integer.toBinaryString(sourceImmediate);
+                while (destBinary.length() < 6)
+                    destBinary = "0" + destBinary;
+                while (srcBinary.length() < 6)
+                    srcBinary = "0" + srcBinary;
+                pc = Short.parseShort(destBinary + srcBinary, 2);
+            }
+            case 8 ->{
+                registers[destination] = (byte)(registers[destination] << sourceImmediate);
+            }
+            case 9 ->{
+                registers[destination] = (byte)(registers[destination] >> sourceImmediate);
+            }
+            case 10 ->{
+                registers[destination] = dataMemory[sourceImmediate];
+            }
+            case 11 ->{
+                dataMemory[sourceImmediate] = registers[destination];
+            }
+        }
     }
 
     public static void load(String file) throws IOException {
@@ -74,9 +120,23 @@ public class Program {
     }
 
     public static void main(String[] args) throws IOException {
-        Program.load("test.txt");
-        for(short e : instructionMemory){
-            System.out.println(e);
+        Scanner sc = new Scanner(System.in);
+        byte b1 = sc.nextByte();
+        byte b2 = sc.nextByte();
+
+        if(b1 < 0 && b2 < 0){
+            if((byte)(b1 + b2) >= 0)
+                System.out.println("Overflow");
+            else
+                System.out.println("No Overflow");
+        }else if(b1 > 0 && b2 > 0){
+            if((byte)(b1 + b2) <= 0)
+                System.out.println("Overflow");
+            else
+                System.out.println("No Overflow");
         }
+
+        System.out.println((byte)(b1 + b2));
+
     }
 }
