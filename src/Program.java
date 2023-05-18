@@ -5,8 +5,8 @@ import java.io.IOException;
 
 public class Program {
     static short[] instructionMemory = new short[1024];
-    byte[] dataMemory = new byte[2048];
-    byte[] registers = new byte[64];
+    static byte[] dataMemory = new byte[2048];
+    static byte[] registers = new byte[64];
     static short pc = 0;
     static byte sreg = 0;
     static int clockCycle = 0;
