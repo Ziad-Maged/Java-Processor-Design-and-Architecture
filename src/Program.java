@@ -63,6 +63,8 @@ public class Program {
                 r2Binary = Integer.toBinaryString(Integer.parseInt(s[2].substring(1)));
             else
                 r2Binary = Integer.toBinaryString(Integer.parseInt(s[2]));
+            if(r2Binary.length() > 6)
+                r2Binary = r2Binary.substring(26);
             while(r2Binary.length() < 6)
                 r2Binary = "0" + r2Binary;
             binary += r1Binary + r2Binary;
