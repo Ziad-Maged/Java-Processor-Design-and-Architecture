@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Program {
     short[] instructionMemory = new short[1024];
@@ -29,6 +33,38 @@ public class Program {
 
     public void execute(byte opcode, byte destination, byte sourceImmediate){
         //TODO LATER
+    }
+
+    public void load(String file) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        int i = 0;
+        while(br.ready()){
+            String[] s = br.readLine().split(" ");
+            String binary = "";
+            switch (s[0]){
+                case "ADD" -> binary += "0000";
+                case "SUB" -> binary += "0001";
+                case "MUL" -> binary += "0010";
+                case "MOVI" -> binary += "0011";
+                case "BEQZ" -> binary += "0100";
+                case "ANDI" -> binary += "0101";
+                case "EOR" -> binary += "0110";
+                case "BR" -> binary += "0111";
+                case "SAL" -> binary += "1000";
+                case "SAR" -> binary += "1001";
+                case "LDR" -> binary += "1010";
+                case "STR" -> binary += "1011";
+            }
+            String r1Binary = Integer.toBinaryString(Integer.parseInt(s[1].substring(1)));
+            while(r1Binary.length() < 6)
+                r1Binary = "0" + r1Binary;
+            String r2Binary = Integer.toBinaryString(Integer.parseInt(s[2].substring(1)));
+            while(r2Binary.length() < 6)
+                r2Binary = "0" + r2Binary;
+            binary += r1Binary + r2Binary;
+            instructionMemory[i] = (short) Integer.parseInt(binary, 2);
+            i++;
+        }
     }
 
     public static void main(String[] args) {
