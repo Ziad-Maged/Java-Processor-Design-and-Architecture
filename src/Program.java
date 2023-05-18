@@ -1,11 +1,8 @@
 
 public class Program {
     Instruction[] instructionMemory = new Instruction[1024];
-
     Data[] dataMemory = new Data[2048];
-
     byte[] registers = new byte[64];
-
     static short pc = 0;
     static byte sreg = 0;
 
