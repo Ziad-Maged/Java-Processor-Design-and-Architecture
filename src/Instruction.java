@@ -6,6 +6,16 @@ public class Instruction {
 
     public Instruction(short instruction){
         this.instruction = instruction;
+        String binary = Integer.toBinaryString(instruction);
+        if(binary.length() > 16)
+            binary = binary.substring(16);
+        else if(binary.length() < 16){
+            while(binary.length() < 16)
+                binary = "0" + binary;
+        }
+        opcode = Byte.parseByte(binary.substring(0, 4), 2);
+        destination = Byte.parseByte(binary.substring(4, 10), 2);
+        sourceImmediate = Byte.parseByte(binary.substring(10), 2);
     }
 
     public byte getDestination() {

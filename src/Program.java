@@ -6,6 +6,9 @@ public class Program {
 
     byte[] registers = new byte[64];
     public static void main(String[] args) {
-
+        String[] test = Integer.toBinaryString(15).split("");
+        for (String s : test) {
+            System.out.println(s);
+        }
     }
 }
