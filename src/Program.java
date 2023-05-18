@@ -4,7 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Program {
-    short[] instructionMemory = new short[1024];
+    static short[] instructionMemory = new short[1024];
     byte[] dataMemory = new byte[2048];
     byte[] registers = new byte[64];
     static short pc = 0;
@@ -35,7 +35,7 @@ public class Program {
         //TODO LATER
     }
 
-    public void load(String file) throws IOException {
+    public static void load(String file) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(file));
         int i = 0;
         while(br.ready()){
@@ -58,7 +58,11 @@ public class Program {
             String r1Binary = Integer.toBinaryString(Integer.parseInt(s[1].substring(1)));
             while(r1Binary.length() < 6)
                 r1Binary = "0" + r1Binary;
-            String r2Binary = Integer.toBinaryString(Integer.parseInt(s[2].substring(1)));
+            String r2Binary;
+            if(s[2].contains("R"))
+                r2Binary = Integer.toBinaryString(Integer.parseInt(s[2].substring(1)));
+            else
+                r2Binary = Integer.toBinaryString(Integer.parseInt(s[2]));
             while(r2Binary.length() < 6)
                 r2Binary = "0" + r2Binary;
             binary += r1Binary + r2Binary;
@@ -67,7 +71,10 @@ public class Program {
         }
     }
 
-    public static void main(String[] args) {
-        //TODO Later
+    public static void main(String[] args) throws IOException {
+        Program.load("test.txt");
+        for(short e : instructionMemory){
+            System.out.println(e);
+        }
     }
 }
