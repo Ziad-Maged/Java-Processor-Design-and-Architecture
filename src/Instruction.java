@@ -103,6 +103,16 @@ public class Instruction {
                 Program.registers[r1] = (byte)(Program.registers[r1] - Program.registers[r2Immediate]);
             }
             case 2 ->{
+                //The Negative BIT
+                if((byte)(Program.registers[r1] * Program.registers[r2Immediate]) < 0)
+                    sregBinary.setCharAt(5, '1');
+                else
+                    sregBinary.setCharAt(5, '0');
+                //The Zero BIT
+                if((byte)(Program.registers[r1] * Program.registers[r2Immediate]) == 0)
+                    sregBinary.setCharAt(3, '1');
+                else
+                    sregBinary.setCharAt(3, '0');
                 Program.registers[r1] = (byte)(Program.registers[r1] * Program.registers[r2Immediate]);
             }
             case 3 ->{
@@ -113,9 +123,29 @@ public class Instruction {
                     Program.pc = (short)(Program.pc + 1 + r2Immediate);
             }
             case 5 ->{
+                //The Negative BIT
+                if((byte)(Program.registers[r1] & Program.registers[r2Immediate]) < 0)
+                    sregBinary.setCharAt(5, '1');
+                else
+                    sregBinary.setCharAt(5, '0');
+                //The Zero BIT
+                if((byte)(Program.registers[r1] & Program.registers[r2Immediate]) == 0)
+                    sregBinary.setCharAt(3, '1');
+                else
+                    sregBinary.setCharAt(3, '0');
                 Program.registers[r1] = (byte) (Program.registers[r1] & r2Immediate);
             }
             case 6 ->{
+                //The Negative BIT
+                if((byte)(Program.registers[r1] ^ Program.registers[r2Immediate]) < 0)
+                    sregBinary.setCharAt(5, '1');
+                else
+                    sregBinary.setCharAt(5, '0');
+                //The Zero BIT
+                if((byte)(Program.registers[r1] ^ Program.registers[r2Immediate]) == 0)
+                    sregBinary.setCharAt(3, '1');
+                else
+                    sregBinary.setCharAt(3, '0');
                 Program.registers[r1] = (byte)(Program.registers[r1] ^ Program.registers[r2Immediate]);
             }
             case 7 ->{
@@ -128,9 +158,29 @@ public class Instruction {
                 Program.pc = Short.parseShort(destBinary + srcBinary.toString(), 2);
             }
             case 8 ->{
+                //The Negative BIT
+                if((byte)(Program.registers[r1] << Program.registers[r2Immediate]) < 0)
+                    sregBinary.setCharAt(5, '1');
+                else
+                    sregBinary.setCharAt(5, '0');
+                //The Zero BIT
+                if((byte)(Program.registers[r1] << Program.registers[r2Immediate]) == 0)
+                    sregBinary.setCharAt(3, '1');
+                else
+                    sregBinary.setCharAt(3, '0');
                 Program.registers[r1] = (byte)(Program.registers[r1] << r2Immediate);
             }
             case 9 ->{
+                //The Negative BIT
+                if((byte)(Program.registers[r1] >> Program.registers[r2Immediate]) < 0)
+                    sregBinary.setCharAt(5, '1');
+                else
+                    sregBinary.setCharAt(5, '0');
+                //The Zero BIT
+                if((byte)(Program.registers[r1] >> Program.registers[r2Immediate]) == 0)
+                    sregBinary.setCharAt(3, '1');
+                else
+                    sregBinary.setCharAt(3, '0');
                 Program.registers[r1] = (byte)(Program.registers[r1] >> r2Immediate);
             }
             case 10 ->{
