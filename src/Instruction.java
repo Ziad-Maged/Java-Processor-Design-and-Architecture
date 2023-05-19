@@ -31,6 +31,7 @@ public class Instruction {
             sregBinary.insert(0, "0");
         switch(opcode){
             case 0 ->{
+                // The Carry BIT
                 int temp1 = Program.registers[r1] & 0x000000FF;
                 int temp2 = Program.registers[r2Immediate] & 0x000000FF;
                 if(((temp1 + temp2) & 0b100000000) == 0b100000000){
@@ -38,6 +39,7 @@ public class Instruction {
                 }else{
                     sregBinary.setCharAt(7, '0');
                 }
+                //The Overflow BIT
                 if(Program.registers[r1] < 0 && Program.registers[r2Immediate] < 0){
                     if((byte)(Program.registers[r1] + Program.registers[r2Immediate]) >= 0)
                         sregBinary.setCharAt(6, '1');
@@ -49,10 +51,22 @@ public class Instruction {
                     else
                         sregBinary.setCharAt(6, '0');
                 }
+                //The Negative BIT
                 if((byte)(Program.registers[r1] + Program.registers[r2Immediate]) < 0)
                     sregBinary.setCharAt(5, '1');
                 else
                     sregBinary.setCharAt(5, '0');
+                //The Sign BIT
+                if((sregBinary.charAt(5) == '1' && sregBinary.charAt(6) == '0')
+                        || (sregBinary.charAt(5) == '0' && sregBinary.charAt(6) == '1'))
+                    sregBinary.setCharAt(4, '1');
+                else
+                    sregBinary.setCharAt(4, '0');
+                //The Zero BIT
+                if((byte)(Program.registers[r1] + Program.registers[r2Immediate]) == 0)
+                    sregBinary.setCharAt(3, '1');
+                else
+                    sregBinary.setCharAt(3, '0');
                 Program.registers[r1] = (byte)(Program.registers[r1] + Program.registers[r2Immediate]);
             }
             case 1 ->{
