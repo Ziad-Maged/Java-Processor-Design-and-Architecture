@@ -26,9 +26,33 @@ public class Instruction {
     }
 
     public void execute(){
-        String[] sregBinary = Integer.toBinaryString(Program.sreg).split("");
+        StringBuilder sregBinary = new StringBuilder(Integer.toBinaryString(Program.sreg));
+        while(sregBinary.length() < 8)
+            sregBinary.insert(0, "0");
         switch(opcode){
             case 0 ->{
+                int temp1 = Program.registers[r1] & 0x000000FF;
+                int temp2 = Program.registers[r2Immediate] & 0x000000FF;
+                if(((temp1 + temp2) & 0b100000000) == 0b100000000){
+                    sregBinary.setCharAt(7, '1');
+                }else{
+                    sregBinary.setCharAt(7, '0');
+                }
+                if(Program.registers[r1] < 0 && Program.registers[r2Immediate] < 0){
+                    if((byte)(Program.registers[r1] + Program.registers[r2Immediate]) >= 0)
+                        sregBinary.setCharAt(6, '1');
+                    else
+                        sregBinary.setCharAt(6, '0');
+                }else if(Program.registers[r1] > 0 && Program.registers[r2Immediate] > 0){
+                    if((byte)(Program.registers[r1] + Program.registers[r2Immediate]) <= 0)
+                        sregBinary.setCharAt(6, '1');
+                    else
+                        sregBinary.setCharAt(6, '0');
+                }
+                if((byte)(Program.registers[r1] + Program.registers[r2Immediate]) < 0)
+                    sregBinary.setCharAt(5, '1');
+                else
+                    sregBinary.setCharAt(5, '0');
                 Program.registers[r1] = (byte)(Program.registers[r1] + Program.registers[r2Immediate]);
             }
             case 1 ->{
@@ -72,6 +96,7 @@ public class Instruction {
                 Program.dataMemory[r2Immediate] = Program.registers[r1];
             }
         }
+        Program.sreg = (byte) Integer.parseInt(sregBinary.toString(), 2);
     }
 
     public void start(){

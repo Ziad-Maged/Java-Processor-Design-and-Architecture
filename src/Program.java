@@ -59,6 +59,15 @@ public class Program {
         byte b1 = sc.nextByte();
         byte b2 = sc.nextByte();
 
+        int temp1 = b1 & 0x000000FF;
+        int temp2 = b2 & 0x000000FF;
+
+        if(((temp1 + temp2) & 0b100000000) == 0b100000000){
+            System.out.println("Carry");
+        }else {
+            System.out.println("No Carry");
+        }
+
         if(b1 < 0 && b2 < 0){
             if((byte)(b1 + b2) >= 0)
                 System.out.println("Overflow");
@@ -70,8 +79,8 @@ public class Program {
             else
                 System.out.println("No Overflow");
         }
-
-        System.out.println((byte)(b1 + b2));
+//
+//        System.out.println((byte)(b1 + b2));
 
     }
 }
