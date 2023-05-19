@@ -53,7 +53,7 @@ public class Program {
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         byte b1 = sc.nextByte();
         byte b2 = sc.nextByte();
