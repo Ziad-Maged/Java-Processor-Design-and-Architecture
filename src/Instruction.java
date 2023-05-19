@@ -198,6 +198,7 @@ public class Instruction {
             decode();
         }else if(currentClockCycle == 3){
             execute();
+            running = false;
         }
         currentClockCycle++;
     }
