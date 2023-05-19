@@ -51,13 +51,13 @@ public class Instruction {
                 Program.registers[r1] = (byte)(Program.registers[r1] ^ Program.registers[r2Immediate]);
             }
             case 7 ->{
-                String destBinary = Integer.toBinaryString(r1);
-                String srcBinary = Integer.toBinaryString(r2Immediate);
+                StringBuilder destBinary = new StringBuilder(Integer.toBinaryString(r1));
+                StringBuilder srcBinary = new StringBuilder(Integer.toBinaryString(r2Immediate));
                 while (destBinary.length() < 6)
-                    destBinary = "0" + destBinary;
+                    destBinary.insert(0, "0");
                 while (srcBinary.length() < 6)
-                    srcBinary = "0" + srcBinary;
-                Program.pc = Short.parseShort(destBinary + srcBinary, 2);
+                    srcBinary.insert(0, "0");
+                Program.pc = Short.parseShort(destBinary + srcBinary.toString(), 2);
             }
             case 8 ->{
                 Program.registers[r1] = (byte)(Program.registers[r1] << r2Immediate);
@@ -75,7 +75,12 @@ public class Instruction {
     }
 
     public void start(){
-        //TODO
+        if(currentClockCycle == 2){
+            decode();
+        }else if(currentClockCycle == 3){
+            execute();
+        }
+        currentClockCycle++;
     }
 
 }

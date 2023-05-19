@@ -10,6 +10,7 @@ public class Program {
     static short pc = 0;
     static byte sreg = 0;
     static int clockCycle = 0;
+    static Instruction[] instructions = new Instruction[3];
 
     public void fetch(){
         //TODO REDO
