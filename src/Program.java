@@ -9,7 +9,9 @@ public class Program {
     static byte[] registers = new byte[64];
     static short pc = 0;
     static byte sreg = 0;
+    static int numberOfInstructions = 0;
     static int clockCycle = 0;
+    static int instructionsCounter = 0;
     static Instruction[] instructions = new Instruction[3];
 
     public void fetch(){
@@ -18,7 +20,6 @@ public class Program {
 
     public static void load(String file) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(file));
-        int i = 0;
         while(br.ready()){
             String[] s = br.readLine().split(" ");
             String binary = "";
@@ -49,38 +50,15 @@ public class Program {
             while(r2Binary.length() < 6)
                 r2Binary.insert(0, "0");
             binary += r1Binary + r2Binary.toString();
-            instructionMemory[i] = (short) Integer.parseInt(binary, 2);
-            i++;
+            instructionMemory[numberOfInstructions++] = (short) Integer.parseInt(binary, 2);
         }
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        byte b1 = sc.nextByte();
-        byte b2 = sc.nextByte();
-
-        int temp1 = b1 & 0x000000FF;
-        int temp2 = b2 & 0x000000FF;
-
-        if(((temp1 + temp2) & 0b100000000) == 0b100000000){
-            System.out.println("Carry");
-        }else {
-            System.out.println("No Carry");
+        try {
+            Program.load("test.txt");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
-        if(b1 < 0 && b2 < 0){
-            if((byte)(b1 + b2) >= 0)
-                System.out.println("Overflow");
-            else
-                System.out.println("No Overflow");
-        }else if(b1 > 0 && b2 > 0){
-            if((byte)(b1 + b2) <= 0)
-                System.out.println("Overflow");
-            else
-                System.out.println("No Overflow");
-        }
-//
-//        System.out.println((byte)(b1 + b2));
-
     }
 }
