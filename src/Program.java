@@ -12,72 +12,7 @@ public class Program {
     static int clockCycle = 0;
 
     public void fetch(){
-        decode(instructionMemory[pc]);
-        clockCycle++;
-        pc++;
-    }
-
-    public void decode(short instruction){
-        String binary = Integer.toBinaryString(instruction);
-        if(binary.length() > 16)
-            binary = binary.substring(16);
-        else if(binary.length() < 16){
-            while(binary.length() < 16)
-                binary = "0" + binary;
-        }
-        byte opcode = Byte.parseByte(binary.substring(0, 4), 2);
-        byte destination = Byte.parseByte(binary.substring(4, 10), 2);
-        byte sourceImmediate = Byte.parseByte(binary.substring(10), 2);
-        execute(opcode, destination, sourceImmediate);
-    }
-
-    public void execute(byte opcode, byte destination, byte sourceImmediate){
-        String[] sregBinary = Integer.toBinaryString(sreg).split("");
-        switch(opcode){
-            case 0 ->{
-                registers[destination] = (byte)(registers[destination] + registers[sourceImmediate]);
-            }
-            case 1 ->{
-                registers[destination] = (byte)(registers[destination] - registers[sourceImmediate]);
-            }
-            case 2 ->{
-                registers[destination] = (byte)(registers[destination] * registers[sourceImmediate]);
-            }
-            case 3 ->{
-                registers[destination] = sourceImmediate;
-            }
-            case 4 ->{
-                if(registers[destination] == 0)
-                    pc = (short)(pc + 1 + sourceImmediate);
-            }
-            case 5 ->{
-                registers[destination] = (byte) (registers[destination] & sourceImmediate);
-            }
-            case 6 ->{
-                registers[destination] = (byte)(registers[destination] ^ registers[sourceImmediate]);
-            }
-            case 7 ->{
-                String destBinary = Integer.toBinaryString(destination);
-                String srcBinary = Integer.toBinaryString(sourceImmediate);
-                while (destBinary.length() < 6)
-                    destBinary = "0" + destBinary;
-                while (srcBinary.length() < 6)
-                    srcBinary = "0" + srcBinary;
-                pc = Short.parseShort(destBinary + srcBinary, 2);
-            }
-            case 8 ->{
-                registers[destination] = (byte)(registers[destination] << sourceImmediate);
-            }
-            case 9 ->{
-                registers[destination] = (byte)(registers[destination] >> sourceImmediate);
-            }
-            case 10 ->{
-                registers[destination] = dataMemory[sourceImmediate];
-            }
-            case 11 ->{
-                dataMemory[sourceImmediate] = registers[destination];
-            }
-        }
+        //TODO REDO
     }
 
     public static void load(String file) throws IOException {
@@ -100,19 +35,19 @@ public class Program {
                 case "LDR" -> binary += "1010";
                 case "STR" -> binary += "1011";
             }
-            String r1Binary = Integer.toBinaryString(Integer.parseInt(s[1].substring(1)));
+            StringBuilder r1Binary = new StringBuilder(Integer.toBinaryString(Integer.parseInt(s[1].substring(1))));
             while(r1Binary.length() < 6)
-                r1Binary = "0" + r1Binary;
-            String r2Binary;
+                r1Binary.insert(0, "0");
+            StringBuilder r2Binary;
             if(s[2].contains("R"))
-                r2Binary = Integer.toBinaryString(Integer.parseInt(s[2].substring(1)));
+                r2Binary = new StringBuilder(Integer.toBinaryString(Integer.parseInt(s[2].substring(1))));
             else
-                r2Binary = Integer.toBinaryString(Integer.parseInt(s[2]));
+                r2Binary = new StringBuilder(Integer.toBinaryString(Integer.parseInt(s[2])));
             if(r2Binary.length() > 6)
-                r2Binary = r2Binary.substring(26);
+                r2Binary = new StringBuilder(r2Binary.substring(26));
             while(r2Binary.length() < 6)
-                r2Binary = "0" + r2Binary;
-            binary += r1Binary + r2Binary;
+                r2Binary.insert(0, "0");
+            binary += r1Binary + r2Binary.toString();
             instructionMemory[i] = (short) Integer.parseInt(binary, 2);
             i++;
         }
