@@ -5,6 +5,7 @@ public class Instruction {
     byte r2Immediate;
     boolean running;
     int currentClockCycle;
+    int instructionNumber;
 
     public Instruction(short instruction){
         this.instruction = instruction;

@@ -15,7 +15,23 @@ public class Program {
     static Instruction[] instructions = new Instruction[3];
 
     public void fetch(){
-        //TODO REDO
+        if(instructionsCounter < numberOfInstructions){
+            if(instructions[0] == null){
+                instructions[0] = new Instruction(instructionMemory[pc++]);
+                instructions[0].instructionNumber = ++instructionsCounter;
+            }else if(instructions[1] == null){
+                instructions[1] = new Instruction(instructionMemory[pc++]);
+                instructions[1].instructionNumber = ++instructionsCounter;
+            }else if(instructions[2] == null){
+                instructions[2] = new Instruction(instructionMemory[pc++]);
+                instructions[2].instructionNumber = ++instructionsCounter;
+            }else if (!instructions[0].running){
+                instructions[0] = instructions[1];
+                instructions[1] = instructions[2];
+                instructions[2] = new Instruction(Program.instructionMemory[pc++]);
+                instructions[2].instructionNumber = ++instructionsCounter;
+            }
+        }
     }
 
     public static void load(String file) throws IOException {
@@ -57,6 +73,7 @@ public class Program {
     public static void main(String[] args) {
         try {
             Program.load("test.txt");
+            Program.clockCycle = 3 + (numberOfInstructions - 1);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
