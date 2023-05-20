@@ -89,6 +89,7 @@ public class Program {
                             System.out.println("Instruction " + e.getInstructionNumber() + "(Decode) (instruction=" + e.getInstruction() + ")");
                         }else if(e.getCurrentClockCycle() == 3){
                             System.out.println("Instruction " + e.getInstructionNumber() + "(Execute) (opcode=" + e.getOpcode() + ", R1=" + e.getR1() + ", R2/Immediate=" + e.getR2Immediate() + ")");
+                            System.out.println(e.getToBePrinted());
                         }
                     }
                 }

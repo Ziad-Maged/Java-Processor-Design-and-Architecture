@@ -6,6 +6,7 @@ public class Instruction {
     private boolean running;
     private int currentClockCycle;
     private int instructionNumber;
+    private String toBePrinted;
 
     public Instruction(short instruction){
         this.instruction = instruction;
@@ -69,7 +70,7 @@ public class Instruction {
                 else
                     sregBinary.setCharAt(3, '0');
                 Program.registers[r1] = (byte)(Program.registers[r1] + Program.registers[r2Immediate]);
-                System.out.println("R" + r1 + "=" + Program.registers[r1]);
+                toBePrinted = "R" + r1 + "=" + Program.registers[r1];
             }
             case 1 ->{
                 //The Overflow BIT
@@ -103,7 +104,7 @@ public class Instruction {
                 else
                     sregBinary.setCharAt(3, '0');
                 Program.registers[r1] = (byte)(Program.registers[r1] - Program.registers[r2Immediate]);
-                System.out.println("R" + r1 + "=" + Program.registers[r1]);
+                toBePrinted = "R" + r1 + "=" + Program.registers[r1];
             }
             case 2 ->{
                 //The Negative BIT
@@ -117,16 +118,16 @@ public class Instruction {
                 else
                     sregBinary.setCharAt(3, '0');
                 Program.registers[r1] = (byte)(Program.registers[r1] * Program.registers[r2Immediate]);
-                System.out.println("R" + r1 + "=" + Program.registers[r1]);
+                toBePrinted = "R" + r1 + "=" + Program.registers[r1];
             }
             case 3 ->{
                 Program.registers[r1] = r2Immediate;
-                System.out.println("R" + r1 + "=" + r2Immediate);
+                toBePrinted = "R" + r1 + "=" + r2Immediate;
             }
             case 4 ->{
                 if(Program.registers[r1] == 0){
                     Program.pc = (short)(Program.pc + 1 + r2Immediate);
-                    System.out.println("PC=" + Program.pc);
+                    toBePrinted = "PC=" + Program.pc;
                 }
             }
             case 5 ->{
@@ -141,7 +142,7 @@ public class Instruction {
                 else
                     sregBinary.setCharAt(3, '0');
                 Program.registers[r1] = (byte) (Program.registers[r1] & r2Immediate);
-                System.out.println("R" + r1 + "=" + Program.registers[r1]);
+                toBePrinted = "R" + r1 + "=" + Program.registers[r1];
             }
             case 6 ->{
                 //The Negative BIT
@@ -155,7 +156,7 @@ public class Instruction {
                 else
                     sregBinary.setCharAt(3, '0');
                 Program.registers[r1] = (byte)(Program.registers[r1] ^ Program.registers[r2Immediate]);
-                System.out.println("R" + r1 + "=" + Program.registers[r1]);
+                toBePrinted = "R" + r1 + "=" + Program.registers[r1];
             }
             case 7 ->{
                 StringBuilder destBinary = new StringBuilder(Integer.toBinaryString(r1));
@@ -165,7 +166,7 @@ public class Instruction {
                 while (srcBinary.length() < 6)
                     srcBinary.insert(0, "0");
                 Program.pc = Short.parseShort(destBinary + srcBinary.toString(), 2);
-                System.out.println("PC=" + Program.pc);
+                toBePrinted = "PC=" + Program.pc;
             }
             case 8 ->{
                 //The Negative BIT
@@ -179,7 +180,7 @@ public class Instruction {
                 else
                     sregBinary.setCharAt(3, '0');
                 Program.registers[r1] = (byte)(Program.registers[r1] << r2Immediate);
-                System.out.println("R" + r1 + "=" + Program.registers[r1]);
+                toBePrinted = "R" + r1 + "=" + Program.registers[r1];
             }
             case 9 ->{
                 //The Negative BIT
@@ -193,15 +194,15 @@ public class Instruction {
                 else
                     sregBinary.setCharAt(3, '0');
                 Program.registers[r1] = (byte)(Program.registers[r1] >> r2Immediate);
-                System.out.println("R" + r1 + "=" + Program.registers[r1]);
+                toBePrinted = "R" + r1 + "=" + Program.registers[r1];
             }
             case 10 ->{
                 Program.registers[r1] = Program.dataMemory[r2Immediate];
-                System.out.println("R" + r1 + "=" + Program.registers[r1]);
+                toBePrinted = "R" + r1 + "=" + Program.registers[r1];
             }
             case 11 ->{
                 Program.dataMemory[r2Immediate] = Program.registers[r1];
-                System.out.println("DataMemory[" + r2Immediate + "]=" + Program.dataMemory[r2Immediate]);
+                toBePrinted = "DataMemory[" + r2Immediate + "]=" + Program.dataMemory[r2Immediate];
             }
         }
         Program.sreg = (byte) Integer.parseInt(sregBinary.toString(), 2);
@@ -243,6 +244,10 @@ public class Instruction {
         this.instructionNumber = instructionNumber;
     }
 
+    public String getToBePrinted() {
+        return toBePrinted;
+    }
+
     public void start(){
         if(currentClockCycle == 1){
             decode();
@@ -252,10 +257,6 @@ public class Instruction {
             running = false;
         }
         currentClockCycle++;
-    }
-
-    public String toString(){
-        return "Instruction " + instructionNumber + " CCC=" + currentClockCycle;
     }
 
 }
