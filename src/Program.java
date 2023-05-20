@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Program {
@@ -14,7 +15,7 @@ public class Program {
     static int instructionsCounter = 0;
     static Instruction[] instructions = new Instruction[3];
 
-    public void fetch(){
+    public static void fetch(){
         if(instructionsCounter < numberOfInstructions){
             if(instructions[0] == null){
                 instructions[0] = new Instruction(instructionMemory[pc++]);
@@ -70,12 +71,39 @@ public class Program {
         }
     }
 
-    public static void main(String[] args) {
+    public static void startPipelinedProgram(){
         try {
             Program.load("test.txt");
             Program.clockCycle = 3 + (numberOfInstructions - 1);
+            for(int i = 1; i <= Program.clockCycle; i++){
+                for(Instruction e : instructions){
+                    if(e != null && e.running)
+                        e.start();
+                }
+                Program.fetch();
+                System.out.println("Clock Cycle " + i + ": ");
+                for(Instruction e : instructions){
+                    if(e != null && e.running){
+                        if(e.currentClockCycle == 2){
+                            System.out.println("Instruction " + e.instructionNumber + "(Fetch) (No Parameters)");
+                        }else if(e.currentClockCycle == 3){
+                            System.out.println("Instruction " + e.instructionNumber + "(Decode) (instruction=" + e.instruction);
+                        }
+                    }else if(e != null && e.currentClockCycle == 4){
+                        System.out.println("Instruction " + e.instructionNumber + "(Execute) (opcode=" + e.opcode + ", R1=" + e.r1 + ", R2/Immediate=" + e.r2Immediate + ")");
+                        e.currentClockCycle = 5;
+                    }
+                }
+            }
+            System.out.println("Instruction Memory: " + Arrays.toString(instructionMemory));
+            System.out.println("Data Memory: " + Arrays.toString(dataMemory));
+            System.out.println("Register File: " + Arrays.toString(registers));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void main(String[] args) {
+        Program.startPipelinedProgram();
     }
 }
