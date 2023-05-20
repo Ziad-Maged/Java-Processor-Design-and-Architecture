@@ -1,11 +1,11 @@
 public class Instruction {
-    short instruction;
-    byte opcode;
-    byte r1;
-    byte r2Immediate;
-    boolean running;
-    int currentClockCycle;
-    int instructionNumber;
+    private final short instruction;
+    private byte opcode;
+    private byte r1;
+    private byte r2Immediate;
+    private boolean running;
+    private int currentClockCycle;
+    private int instructionNumber;
 
     public Instruction(short instruction){
         this.instruction = instruction;
@@ -205,6 +205,42 @@ public class Instruction {
             }
         }
         Program.sreg = (byte) Integer.parseInt(sregBinary.toString(), 2);
+    }
+
+    public short getInstruction() {
+        return instruction;
+    }
+
+    public byte getOpcode() {
+        return opcode;
+    }
+
+    public byte getR1() {
+        return r1;
+    }
+
+    public byte getR2Immediate() {
+        return r2Immediate;
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    public int getInstructionNumber() {
+        return instructionNumber;
+    }
+
+    public int getCurrentClockCycle() {
+        return currentClockCycle;
+    }
+
+    public void setCurrentClockCycle(int currentClockCycle) {
+        this.currentClockCycle = currentClockCycle;
+    }
+
+    public void setInstructionNumber(int instructionNumber) {
+        this.instructionNumber = instructionNumber;
     }
 
     public void start(){

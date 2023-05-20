@@ -18,18 +18,18 @@ public class Program {
         if(instructionsCounter < numberOfInstructions){
             if(instructions[0] == null){
                 instructions[0] = new Instruction(instructionMemory[pc++]);
-                instructions[0].instructionNumber = ++instructionsCounter;
+                instructions[0].setInstructionNumber(++instructionsCounter);
             }else if(instructions[1] == null){
                 instructions[1] = new Instruction(instructionMemory[pc++]);
-                instructions[1].instructionNumber = ++instructionsCounter;
+                instructions[1].setInstructionNumber(++instructionsCounter);
             }else if(instructions[2] == null){
                 instructions[2] = new Instruction(instructionMemory[pc++]);
-                instructions[2].instructionNumber = ++instructionsCounter;
-            }else if (!instructions[0].running){
+                instructions[2].setInstructionNumber(++instructionsCounter);
+            }else if (!instructions[0].isRunning()){
                 instructions[0] = instructions[1];
                 instructions[1] = instructions[2];
                 instructions[2] = new Instruction(Program.instructionMemory[pc++]);
-                instructions[2].instructionNumber = ++instructionsCounter;
+                instructions[2].setInstructionNumber(++instructionsCounter);
             }
         }
     }
@@ -76,21 +76,21 @@ public class Program {
             Program.clockCycle = 3 + (numberOfInstructions - 1);
             for(int i = 1; i <= Program.clockCycle; i++){
                 for(Instruction e : instructions){
-                    if(e != null && e.running)
+                    if(e != null && e.isRunning())
                         e.start();
                 }
                 Program.fetch();
                 System.out.println("Clock Cycle " + i + ": ");
                 for(Instruction e : instructions){
-                    if(e != null && e.running){
-                        if(e.currentClockCycle == 2){
-                            System.out.println("Instruction " + e.instructionNumber + "(Fetch) (No Parameters)");
-                        }else if(e.currentClockCycle == 3){
-                            System.out.println("Instruction " + e.instructionNumber + "(Decode) (instruction=" + e.instruction + ")");
+                    if(e != null && e.isRunning()){
+                        if(e.getCurrentClockCycle() == 2){
+                            System.out.println("Instruction " + e.getInstructionNumber() + "(Fetch) (No Parameters)");
+                        }else if(e.getCurrentClockCycle() == 3){
+                            System.out.println("Instruction " + e.getInstructionNumber() + "(Decode) (instruction=" + e.getInstruction() + ")");
                         }
-                    }else if(e != null && e.currentClockCycle == 4){
-                        System.out.println("Instruction " + e.instructionNumber + "(Execute) (opcode=" + e.opcode + ", R1=" + e.r1 + ", R2/Immediate=" + e.r2Immediate + ")");
-                        e.currentClockCycle = 5;
+                    }else if(e != null && e.getCurrentClockCycle() == 4){
+                        System.out.println("Instruction " + e.getInstructionNumber() + "(Execute) (opcode=" + e.getOpcode() + ", R1=" + e.getR1() + ", R2/Immediate=" + e.getR2Immediate() + ")");
+                        e.setCurrentClockCycle(5);
                     }
                 }
             }
