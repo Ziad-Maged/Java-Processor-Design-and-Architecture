@@ -62,7 +62,7 @@ public class Program {
             else
                 r2Binary = new StringBuilder(Integer.toBinaryString(Integer.parseInt(s[2])));
             if(r2Binary.length() > 6)
-                r2Binary = new StringBuilder(r2Binary.substring(26));
+                r2Binary = new StringBuilder(r2Binary.substring(r2Binary.length() - 6));
             while(r2Binary.length() < 6)
                 r2Binary.insert(0, "0");
             binary += r1Binary + r2Binary.toString();
@@ -97,6 +97,7 @@ public class Program {
             System.out.println("Instruction Memory: " + Arrays.toString(instructionMemory));
             System.out.println("Data Memory: " + Arrays.toString(dataMemory));
             System.out.println("Register File: " + Arrays.toString(registers));
+            System.out.println("Status Register: " + Program.sreg);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
