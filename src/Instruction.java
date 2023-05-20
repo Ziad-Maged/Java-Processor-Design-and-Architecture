@@ -10,7 +10,7 @@ public class Instruction {
     public Instruction(short instruction){
         this.instruction = instruction;
         this.running = true;
-        currentClockCycle = 2;
+        currentClockCycle = 1;
     }
 
     public void decode(){
@@ -244,13 +244,18 @@ public class Instruction {
     }
 
     public void start(){
-        if(currentClockCycle == 2){
+        if(currentClockCycle == 1){
             decode();
-        }else if(currentClockCycle == 3){
+        }else if(currentClockCycle == 2){
             execute();
+        }else if(currentClockCycle == 3){
             running = false;
         }
         currentClockCycle++;
+    }
+
+    public String toString(){
+        return "Instruction " + instructionNumber + " CCC=" + currentClockCycle;
     }
 
 }

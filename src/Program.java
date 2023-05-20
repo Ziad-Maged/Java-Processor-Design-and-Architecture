@@ -83,14 +83,13 @@ public class Program {
                 System.out.println("Clock Cycle " + i + ": ");
                 for(Instruction e : instructions){
                     if(e != null && e.isRunning()){
-                        if(e.getCurrentClockCycle() == 2){
+                        if(e.getCurrentClockCycle() == 1){
                             System.out.println("Instruction " + e.getInstructionNumber() + "(Fetch) (No Parameters)");
-                        }else if(e.getCurrentClockCycle() == 3){
+                        }else if(e.getCurrentClockCycle() == 2){
                             System.out.println("Instruction " + e.getInstructionNumber() + "(Decode) (instruction=" + e.getInstruction() + ")");
+                        }else if(e.getCurrentClockCycle() == 3){
+                            System.out.println("Instruction " + e.getInstructionNumber() + "(Execute) (opcode=" + e.getOpcode() + ", R1=" + e.getR1() + ", R2/Immediate=" + e.getR2Immediate() + ")");
                         }
-                    }else if(e != null && e.getCurrentClockCycle() == 4){
-                        System.out.println("Instruction " + e.getInstructionNumber() + "(Execute) (opcode=" + e.getOpcode() + ", R1=" + e.getR1() + ", R2/Immediate=" + e.getR2Immediate() + ")");
-                        e.setCurrentClockCycle(5);
                     }
                 }
             }
