@@ -87,7 +87,7 @@ public class Program {
                         if(e.currentClockCycle == 2){
                             System.out.println("Instruction " + e.instructionNumber + "(Fetch) (No Parameters)");
                         }else if(e.currentClockCycle == 3){
-                            System.out.println("Instruction " + e.instructionNumber + "(Decode) (instruction=" + e.instruction);
+                            System.out.println("Instruction " + e.instructionNumber + "(Decode) (instruction=" + e.instruction + ")");
                         }
                     }else if(e != null && e.currentClockCycle == 4){
                         System.out.println("Instruction " + e.instructionNumber + "(Execute) (opcode=" + e.opcode + ", R1=" + e.r1 + ", R2/Immediate=" + e.r2Immediate + ")");
