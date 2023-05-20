@@ -236,10 +236,6 @@ public class Instruction {
         return currentClockCycle;
     }
 
-    public void setCurrentClockCycle(int currentClockCycle) {
-        this.currentClockCycle = currentClockCycle;
-    }
-
     public void setInstructionNumber(int instructionNumber) {
         this.instructionNumber = instructionNumber;
     }
