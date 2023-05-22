@@ -88,7 +88,7 @@ public class Program {
 
     public static void startPipelinedProgram(){
         try {
-            Program.load("test.txt");
+            Program.load("Program.txt");
             if(numberOfInstructions == -1)
                 return;
             Program.clockCycle = 3 + (numberOfInstructions - 1);
