@@ -57,6 +57,22 @@ public class Program {
             while(r1Binary.length() < 6)
                 r1Binary.insert(0, "0");
             StringBuilder r2Binary;
+            switch (s[0]){
+                case "ADD", "SUB", "MUL", "EOR", "BR" ->{
+                    if(!s[2].contains("R")){
+                        System.out.println("Error in Instruction " + numberOfInstructions + 1 + " Expected a register between R0 and R63 but received Immediate");
+                        numberOfInstructions = -1;
+                        return;
+                    }
+                }
+                default -> {
+                    if(s[2].contains("R")){
+                        System.out.println("Error in Instruction " + numberOfInstructions + 1 + " Expected an Immediate but received a Register");
+                        numberOfInstructions = -1;
+                        return;
+                    }
+                }
+            }
             if(s[2].contains("R"))
                 r2Binary = new StringBuilder(Integer.toBinaryString(Integer.parseInt(s[2].substring(1))));
             else
@@ -73,6 +89,8 @@ public class Program {
     public static void startPipelinedProgram(){
         try {
             Program.load("test.txt");
+            if(numberOfInstructions == -1)
+                return;
             Program.clockCycle = 3 + (numberOfInstructions - 1);
             for(int i = 1; i <= Program.clockCycle; i++){
                 for(Instruction e : instructions){
