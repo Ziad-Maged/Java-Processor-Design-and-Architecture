@@ -60,14 +60,14 @@ public class Program {
             switch (s[0]){
                 case "ADD", "SUB", "MUL", "EOR", "BR" ->{
                     if(!s[2].contains("R")){
-                        System.out.println("Error in Instruction " + numberOfInstructions + 1 + " Expected a register between R0 and R63 but received Immediate");
+                        System.out.println("Error in Instruction " + (numberOfInstructions + 1) + " Expected a register between R0 and R63 but received Immediate");
                         numberOfInstructions = -1;
                         return;
                     }
                 }
                 default -> {
                     if(s[2].contains("R")){
-                        System.out.println("Error in Instruction " + numberOfInstructions + 1 + " Expected an Immediate but received a Register");
+                        System.out.println("Error in Instruction " + (numberOfInstructions + 1) + " Expected an Immediate but received a Register");
                         numberOfInstructions = -1;
                         return;
                     }
