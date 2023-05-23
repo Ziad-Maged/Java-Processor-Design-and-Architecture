@@ -102,7 +102,7 @@ public class Program {
                 for(Instruction e : instructions){
                     if(e != null && e.isRunning()){
                         if(e.getCurrentClockCycle() == 1){
-                            System.out.println("Instruction " + e.getInstructionNumber() + "(Fetch) (No Parameters)");
+                            System.out.println("Instruction " + e.getInstructionNumber() + "(Fetch) (PC=" + (Program.pc-1) + ")");
                         }else if(e.getCurrentClockCycle() == 2){
                             System.out.println("Instruction " + e.getInstructionNumber() + "(Decode) (instruction=" + e.getInstruction() + ")");
                         }else if(e.getCurrentClockCycle() == 3){
