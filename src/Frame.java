@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Arrays;
 
 public class Frame extends JFrame implements KeyListener {
 
@@ -11,6 +12,7 @@ public class Frame extends JFrame implements KeyListener {
     public Frame(){
         this.setSize(500, 500);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.addKeyListener(this);
         this.setTitle("Assembly Constructor");
         this.setLocationRelativeTo(null);
         textField.setBackground(Color.BLACK);
@@ -18,6 +20,7 @@ public class Frame extends JFrame implements KeyListener {
         textField.setForeground(Color.GREEN);
         textField.setCaretColor(Color.WHITE);
         textField.setLineWrap(true);
+        textField.addKeyListener(this);
         this.add(scrollPane);
         this.setVisible(true);
     }
@@ -39,7 +42,8 @@ public class Frame extends JFrame implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-            //TODO
+            String[] instructions = textField.getText().split("\n");
+            System.out.println(Arrays.deepToString(instructions));
         }
     }
 }
