@@ -127,9 +127,7 @@ public class Program {
             guiOutput.append("Data Memory: ").append(Arrays.toString(dataMemory)).append("\n");
             guiOutput.append("Register File: ").append(Arrays.toString(registers)).append("\n");
             guiOutput.append("Status Register: ").append(Program.sreg).append("\n");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        } catch (IOException ignored) {/*Ignored*/}
     }
 
     public static void main(String[] args) {
