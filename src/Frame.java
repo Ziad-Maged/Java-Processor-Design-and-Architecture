@@ -18,6 +18,7 @@ public class Frame extends JFrame implements KeyListener {
         this.addKeyListener(this);
         this.setTitle("Assembly Constructor");
         this.setLocationRelativeTo(null);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         textField.setBackground(Color.BLACK);
         textField.setFont(new Font("Times New Roman", Font.PLAIN, 15));
         textField.setForeground(Color.GREEN);
@@ -63,8 +64,8 @@ public class Frame extends JFrame implements KeyListener {
                 text.setForeground(Color.GREEN);
                 JFrame frame = new JFrame();
                 frame.setSize(500, 500);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setTitle("Output");
+                frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 frame.add(text);
                 frame.setVisible(true);
             } catch (IOException ignored) {}

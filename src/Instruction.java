@@ -205,6 +205,7 @@ public class Instruction {
                 toBePrinted = "DataMemory[" + r2Immediate + "]=" + Program.dataMemory[r2Immediate];
             }
         }
+        toBePrinted += " sreg=" + sregBinary;
         Program.sreg = (byte) Integer.parseInt(sregBinary.toString(), 2);
     }
 

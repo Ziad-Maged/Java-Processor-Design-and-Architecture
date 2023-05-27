@@ -94,6 +94,7 @@ public class Program {
                 return;
             Program.clockCycle = 3 + (numberOfInstructions - 1);
             for(int i = 1; i <= Program.clockCycle; i++){
+                sreg = 0;
                 for(Instruction e : instructions){
                     if(e != null && e.isRunning())
                         e.start();
