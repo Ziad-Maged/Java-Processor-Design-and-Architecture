@@ -57,7 +57,7 @@ public class Frame extends JFrame implements KeyListener {
                 Program.startPipelinedProgram();
                 JTextArea text = new JTextArea();
                 text.setEditable(false);
-                text.setText(Program.guiOutput);
+                text.setText(Program.guiOutput.toString());
                 text.setBackground(Color.BLACK);
                 text.setFont(new Font("Times New Roman", Font.PLAIN, 15));
                 text.setForeground(Color.GREEN);

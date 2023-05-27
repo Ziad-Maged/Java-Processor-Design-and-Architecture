@@ -13,7 +13,7 @@ public class Program {
     static int clockCycle = 0;
     static int instructionsCounter = 0;
     static Instruction[] instructions = new Instruction[3];
-    static String guiOutput = "";
+    static StringBuilder guiOutput = new StringBuilder();
 
     public static void fetch(){
         if(instructionsCounter < numberOfInstructions){
@@ -100,20 +100,20 @@ public class Program {
                 }
                 Program.fetch();
                 System.out.println("Clock Cycle " + i + ": ");
-                guiOutput += "Clock Cycle " + i + ": " + "\n";
+                guiOutput.append("Clock Cycle ").append(i).append(": ").append("\n");
                 for(Instruction e : instructions){
                     if(e != null && e.isRunning()){
                         if(e.getCurrentClockCycle() == 1){
                             System.out.println("Instruction " + e.getInstructionNumber() + "(Fetch) (PC=" + (Program.pc-1) + ")");
-                            guiOutput += "Instruction " + e.getInstructionNumber() + "(Fetch) (PC=" + (Program.pc-1) + ")" + "\n";
+                            guiOutput.append("Instruction ").append(e.getInstructionNumber()).append("(Fetch) (PC=").append(Program.pc - 1).append(")").append("\n");
                         }else if(e.getCurrentClockCycle() == 2){
                             System.out.println("Instruction " + e.getInstructionNumber() + "(Decode) (instruction=" + e.getInstruction() + ")");
-                            guiOutput += "Instruction " + e.getInstructionNumber() + "(Decode) (instruction=" + e.getInstruction() + ")" + "\n";
+                            guiOutput.append("Instruction ").append(e.getInstructionNumber()).append("(Decode) (instruction=").append(e.getInstruction()).append(")").append("\n");
                         }else if(e.getCurrentClockCycle() == 3){
                             System.out.println("Instruction " + e.getInstructionNumber() + "(Execute) (opcode=" + e.getOpcode() + ", R1=" + e.getR1() + ", R2/Immediate=" + e.getR2Immediate() + ")");
-                            guiOutput += "Instruction " + e.getInstructionNumber() + "(Execute) (opcode=" + e.getOpcode() + ", R1=" + e.getR1() + ", R2/Immediate=" + e.getR2Immediate() + ")" + "\n";
+                            guiOutput.append("Instruction ").append(e.getInstructionNumber()).append("(Execute) (opcode=").append(e.getOpcode()).append(", R1=").append(e.getR1()).append(", R2/Immediate=").append(e.getR2Immediate()).append(")").append("\n");
                             System.out.println(e.getToBePrinted());
-                            guiOutput += e.getToBePrinted() + "\n";
+                            guiOutput.append(e.getToBePrinted()).append("\n");
                         }
                     }
                 }
@@ -122,10 +122,10 @@ public class Program {
             System.out.println("Data Memory: " + Arrays.toString(dataMemory));
             System.out.println("Register File: " + Arrays.toString(registers));
             System.out.println("Status Register: " + Program.sreg);
-            guiOutput += "Instruction Memory: " + Arrays.toString(instructionMemory) + "\n";
-            guiOutput += "Data Memory: " + Arrays.toString(dataMemory) + "\n";
-            guiOutput += "Register File: " + Arrays.toString(registers) + "\n";
-            guiOutput += "Status Register: " + Program.sreg + "\n";
+            guiOutput.append("Instruction Memory: ").append(Arrays.toString(instructionMemory)).append("\n");
+            guiOutput.append("Data Memory: ").append(Arrays.toString(dataMemory)).append("\n");
+            guiOutput.append("Register File: ").append(Arrays.toString(registers)).append("\n");
+            guiOutput.append("Status Register: ").append(Program.sreg).append("\n");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
