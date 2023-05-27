@@ -1,4 +1,10 @@
 Team Number: 53
-Team Name:
+Team Name: ConcurrentModificationException
 Package Number: 4
 Package Name: Double Big Harvard combo large arithmetic shifts
+Team Members:
+1. Ziad Maged Morsi Elsabbagh (52-3211) (T-08)
+2. Ahmed Hesham Elganainy (52-11208) (T-06)
+3. Yousef Mohammed Mostafa Sanad (52-8143) (T-06)
+4. Sara Mohammed Gheita (52-1068) (T-25)
+5. Ibrahim Mohammed Gamil (52-3692) (T-18)
