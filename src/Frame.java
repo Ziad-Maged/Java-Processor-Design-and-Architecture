@@ -11,6 +11,7 @@ public class Frame extends JFrame {
         this.setTitle("Assembly Constructor");
         this.setLocationRelativeTo(null);
         textField.setBackground(Color.BLACK);
+        textField.setFont(new Font("Times New Roman", Font.PLAIN, 15));
         textField.setForeground(Color.GREEN);
         textField.setCaretColor(Color.WHITE);
         this.add(textField);
