@@ -55,9 +55,19 @@ public class Frame extends JFrame implements KeyListener {
                 writer.print(instructions[instructions.length - 1]);
                 writer.close();
                 Program.startPipelinedProgram();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
+                JTextArea text = new JTextArea();
+                text.setEditable(false);
+                text.setText(Program.guiOutput);
+                text.setBackground(Color.BLACK);
+                text.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+                text.setForeground(Color.GREEN);
+                JFrame frame = new JFrame();
+                frame.setSize(500, 500);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setTitle("Output");
+                frame.add(text);
+                frame.setVisible(true);
+            } catch (IOException ignored) {}
         }
     }
 }

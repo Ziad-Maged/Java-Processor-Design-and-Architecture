@@ -13,6 +13,7 @@ public class Program {
     static int clockCycle = 0;
     static int instructionsCounter = 0;
     static Instruction[] instructions = new Instruction[3];
+    static String guiOutput = "";
 
     public static void fetch(){
         if(instructionsCounter < numberOfInstructions){
@@ -99,15 +100,20 @@ public class Program {
                 }
                 Program.fetch();
                 System.out.println("Clock Cycle " + i + ": ");
+                guiOutput += "Clock Cycle " + i + ": " + "\n";
                 for(Instruction e : instructions){
                     if(e != null && e.isRunning()){
                         if(e.getCurrentClockCycle() == 1){
                             System.out.println("Instruction " + e.getInstructionNumber() + "(Fetch) (PC=" + (Program.pc-1) + ")");
+                            guiOutput += "Instruction " + e.getInstructionNumber() + "(Fetch) (PC=" + (Program.pc-1) + ")" + "\n";
                         }else if(e.getCurrentClockCycle() == 2){
                             System.out.println("Instruction " + e.getInstructionNumber() + "(Decode) (instruction=" + e.getInstruction() + ")");
+                            guiOutput += "Instruction " + e.getInstructionNumber() + "(Decode) (instruction=" + e.getInstruction() + ")" + "\n";
                         }else if(e.getCurrentClockCycle() == 3){
                             System.out.println("Instruction " + e.getInstructionNumber() + "(Execute) (opcode=" + e.getOpcode() + ", R1=" + e.getR1() + ", R2/Immediate=" + e.getR2Immediate() + ")");
+                            guiOutput += "Instruction " + e.getInstructionNumber() + "(Execute) (opcode=" + e.getOpcode() + ", R1=" + e.getR1() + ", R2/Immediate=" + e.getR2Immediate() + ")" + "\n";
                             System.out.println(e.getToBePrinted());
+                            guiOutput += e.getToBePrinted() + "\n";
                         }
                     }
                 }
@@ -116,6 +122,10 @@ public class Program {
             System.out.println("Data Memory: " + Arrays.toString(dataMemory));
             System.out.println("Register File: " + Arrays.toString(registers));
             System.out.println("Status Register: " + Program.sreg);
+            guiOutput += "Instruction Memory: " + Arrays.toString(instructionMemory) + "\n";
+            guiOutput += "Data Memory: " + Arrays.toString(dataMemory) + "\n";
+            guiOutput += "Register File: " + Arrays.toString(registers) + "\n";
+            guiOutput += "Status Register: " + Program.sreg + "\n";
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
