@@ -70,5 +70,11 @@ public class Frame extends JFrame implements KeyListener {
                 frame.setVisible(true);
             } catch (IOException ignored) {}
         }
+        Program.guiOutput = new StringBuilder();
+        Program.numberOfInstructions = 0;
+        Program.instructions = new Instruction[3];
+        Program.pc = 0;
+        Program.sreg = 0;
+        Program.instructionsCounter = 0;
     }
 }
