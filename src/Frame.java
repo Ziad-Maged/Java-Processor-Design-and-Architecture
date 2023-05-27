@@ -1,9 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class Frame extends JFrame {
+public class Frame extends JFrame implements KeyListener {
 
-    JTextArea textField = new JTextArea();
+    JTextArea textField = new JTextArea(500, 500);
+    JScrollPane scrollPane = new JScrollPane(textField, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
     public Frame(){
         this.setSize(500, 500);
@@ -14,7 +17,8 @@ public class Frame extends JFrame {
         textField.setFont(new Font("Times New Roman", Font.PLAIN, 15));
         textField.setForeground(Color.GREEN);
         textField.setCaretColor(Color.WHITE);
-        this.add(textField);
+        textField.setLineWrap(true);
+        this.add(scrollPane);
         this.setVisible(true);
     }
 
@@ -22,4 +26,20 @@ public class Frame extends JFrame {
         new Frame();
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+            //TODO
+        }
+    }
 }
