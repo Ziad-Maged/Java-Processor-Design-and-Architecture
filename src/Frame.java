@@ -62,11 +62,12 @@ public class Frame extends JFrame implements KeyListener {
                 text.setBackground(Color.BLACK);
                 text.setFont(new Font("Times New Roman", Font.PLAIN, 15));
                 text.setForeground(Color.GREEN);
+                JScrollPane scroll = new JScrollPane(text, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
                 JFrame frame = new JFrame();
                 frame.setSize(500, 500);
                 frame.setTitle("Output");
                 frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                frame.add(text);
+                frame.add(scroll);
                 frame.setVisible(true);
             } catch (IOException ignored) {}
         }
