@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 
 public class Frame extends JFrame implements KeyListener {
@@ -44,6 +47,17 @@ public class Frame extends JFrame implements KeyListener {
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
             String[] instructions = textField.getText().split("\n");
             System.out.println(Arrays.deepToString(instructions));
+            try {
+                PrintWriter writer = new PrintWriter(new FileWriter("Program.txt"));
+                for(int i = 0; i < instructions.length - 1; i++){
+                    writer.println(instructions[i]);
+                }
+                writer.print(instructions[instructions.length - 1]);
+                writer.close();
+                Program.startPipelinedProgram();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 }
