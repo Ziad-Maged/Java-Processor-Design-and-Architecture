@@ -47,7 +47,6 @@ public class Frame extends JFrame implements KeyListener {
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
             String[] instructions = textField.getText().split("\n");
-            System.out.println(Arrays.deepToString(instructions));
             try {
                 PrintWriter writer = new PrintWriter(new FileWriter("Program.txt"));
                 for(int i = 0; i < instructions.length - 1; i++){
