@@ -89,7 +89,7 @@ public class Program {
 
     public static void startPipelinedProgram(){
         try {
-            Program.load("Program.txt");
+            Program.load("Package 4_4.txt");
             if(numberOfInstructions == -1)
                 return;
             Program.clockCycle = 3 + (numberOfInstructions - 1);
